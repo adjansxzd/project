@@ -1,1 +1,2 @@
 # project
+Alzhanov Adilzhan
