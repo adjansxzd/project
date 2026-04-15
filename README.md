@@ -5,4 +5,4 @@ The main goal of this project is to create a simple and interactive system where
 - Alzhanov Adilzhan
 - Arystanbek Yerassyl
 - Kapsikh Aibyn
-=======
+
