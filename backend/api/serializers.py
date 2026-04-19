@@ -1,53 +1,62 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Genre, Director, Movie, Review
+from .models import Genre, Movie, Review, WatchlistItem, Favorite
 
-# 1. Ручные сериализаторы (serializers.Serializer)
 
-class GenreSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(max_length=100)
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
 
-    def create(self, validated_data):
-        return Genre.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.save()
-        return instance
+class MovieSearchSerializer(serializers.Serializer):
+    query = serializers.CharField(required=False, allow_blank=True)
+    genre_id = serializers.IntegerField(required=False)
+    year = serializers.IntegerField(required=False)
 
-class DirectorSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(max_length=200)
 
-    def create(self, validated_data):
-        return Director.objects.create(**validated_data)
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ['id', 'name']
 
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.save()
-        return instance
-
-# 2. Автоматические сериализаторы (serializers.ModelSerializer)
 
 class MovieSerializer(serializers.ModelSerializer):
-    # Добавляем вложенные данные, чтобы при запросе фильма выдавалось имя жанра и режиссера, а не просто их ID
-    genre = GenreSerializer(read_only=True)
-    director = DirectorSerializer(read_only=True)
-    
-    # Эти поля используем для создания/обновления (передаем ID)
-    genre_id = serializers.IntegerField(write_only=True)
-    director_id = serializers.IntegerField(write_only=True)
+    genre_name = serializers.CharField(source='genre.name', read_only=True)
+    average_score = serializers.SerializerMethodField()
 
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'description', 'year', 'genre', 'director', 'genre_id', 'director_id']
+        fields = ['id', 'title', 'description', 'release_year', 'poster_url', 'genre', 'genre_name', 'average_score']
+
+    def get_average_score(self, obj):
+        reviews = obj.reviews.all()
+        if not reviews.exists():
+            return None
+        return round(sum(r.score for r in reviews) / reviews.count(), 1)
+
 
 class ReviewSerializer(serializers.ModelSerializer):
-    # Добавляем имя пользователя, чтобы на фронтенде писать "Отзыв от Ivan"
-    author_username = serializers.ReadOnlyField(source='author.username')
+    username = serializers.CharField(source='user.username', read_only=True)
 
     class Meta:
         model = Review
-        fields = ['id', 'movie', 'author_username', 'text', 'rating']
-        # Делаем так, чтобы автор не передавался с фронтенда, а брался из токена авторизации
-        read_only_fields = ['author']
+        fields = ['id', 'username', 'user', 'movie', 'text', 'score', 'created_at']
+        read_only_fields = ['user', 'movie', 'created_at']
+
+
+class WatchlistItemSerializer(serializers.ModelSerializer):
+    movie_title = serializers.CharField(source='movie.title', read_only=True)
+
+    class Meta:
+        model = WatchlistItem
+        fields = ['id', 'movie', 'movie_title', 'status', 'added_at']
+        read_only_fields = ['added_at']
+
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    movie_title = serializers.CharField(source='movie.title', read_only=True)
+
+    class Meta:
+        model = Favorite
+        fields = ['id', 'movie', 'movie_title', 'created_at']
+        read_only_fields = ['created_at']
