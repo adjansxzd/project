@@ -29,7 +29,7 @@ export class Register {
 
     this.authService.register({ username: this.username, password: this.password }).subscribe({
       next: (res) => {
-        this.authService.saveToken(res.token, this.username);
+        this.authService.saveToken(res.access, this.username);
         this.router.navigate(['/']);
       },
       error: (err) => {

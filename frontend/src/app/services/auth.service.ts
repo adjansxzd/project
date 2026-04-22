@@ -14,7 +14,7 @@ export class AuthService {
     login(data: LoginRequest): Observable<AuthResponse> {
         return this.http.post<AuthResponse>(`${this.baseUrl}/login/`, data).pipe(
             tap(response => {
-                this.saveToken(response.token, data.username);
+                this.saveToken(response.access, data.username);
             })
         );
     }

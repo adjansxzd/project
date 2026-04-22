@@ -33,11 +33,12 @@ constructor(
     this.error = '';
 
     this.authService.login({ username: this.username, password: this.password }).subscribe({
-      next: (res) => {
-        console.log('LOGIN SUCCESS');
-        this.loading = false;
-        this.router.navigate(['/home']);
-      },
+    next: (res) => {
+      console.log('LOGIN SUCCESS');
+      this.authService.saveToken(res.access, this.username);
+      this.loading = false;
+      this.router.navigate(['/home']);
+    },
       error: (err) => {
         this.loading = false;
 
