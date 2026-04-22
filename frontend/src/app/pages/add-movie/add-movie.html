@@ -1,0 +1,45 @@
+<div class="add-movie-page"> <!-- Yegor -->
+  <div class="create-form"> <!-- Yegor -->
+    <h2>Add Movie</h2>
+
+    <input
+      type="text"
+      placeholder="Title"
+      [(ngModel)]="newMovie.title"
+    />
+
+    <textarea
+      placeholder="Description"
+      [(ngModel)]="newMovie.description"
+    ></textarea>
+
+    <input
+      type="number"
+      placeholder="Year"
+      [(ngModel)]="newMovie.year"
+    />
+
+    <select [(ngModel)]="newMovie.genre"> <!-- Yegor -->
+      <option [ngValue]="null">Select genre</option> <!-- Yegor -->
+      <option *ngFor="let genre of genres" [ngValue]="genre.id">
+        {{ genre.name }}
+      </option>
+    </select>
+
+    <label>Video</label> <!-- Yegor -->
+    <input
+      type="file"
+      accept="video/*"
+      (change)="onVideoSelected($event)"
+    />
+
+    <label>Preview image</label> <!-- Yegor -->
+    <input
+      type="file"
+      accept="image/*"
+      (change)="onPreviewSelected($event)"
+    />
+
+    <button (click)="createMovie()">Add Movie</button>
+  </div>
+</div>

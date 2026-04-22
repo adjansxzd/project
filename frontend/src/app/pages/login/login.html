@@ -1,0 +1,30 @@
+<!--------------------Alan-------------------------->
+<form (ngSubmit)="onSubmit()">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2>Войти</h2>
+
+      <p class="error" *ngIf="error !== ''">{{ error }}</p>
+
+      <div class="form-group">
+        <label>Логин</label>
+        <input [(ngModel)]="username" type="text" name="username" placeholder="Введите логин" />
+      </div>
+
+      <div class="form-group">
+        <label>Пароль</label>
+        <input [(ngModel)]="password" type="password" name="password" placeholder="Введите пароль" />
+      </div>
+
+      <button class="btn-submit" type="submit" [disabled]="loading">
+        {{ loading ? 'Входим...' : 'Войти' }}
+      </button>
+
+      <p class="switch-auth">
+        Нет аккаунта?
+        <a routerLink="/register">Зарегистрируйся</a>
+      </p>
+    </div>
+  </div>
+</form>
+<!--------------------Alan-------------------------->

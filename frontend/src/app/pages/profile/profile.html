@@ -1,0 +1,24 @@
+<!--Alan-->
+<div *ngIf="profile">
+
+  <h2>{{ profile.username }}</h2>
+  <p>{{ profile.email }}</p>
+  <p>Joined: {{ profile.date_joined | date }}</p>
+  <img [src]="profile?.avatar" width="120" />
+
+  <input type="file" (change)="onFileSelected($event)" />
+
+  <p>Movies: {{ profile?.movies_count }}</p>
+
+  <button (click)="editMode = true" *ngIf="!editMode">
+    Edit
+  </button>
+
+  <div *ngIf="editMode">
+    <input [(ngModel)]="profile.username" placeholder="Username">
+    <input [(ngModel)]="profile.email" placeholder="Email">
+
+    <button (click)="save()">Save</button>
+  </div>
+
+</div>

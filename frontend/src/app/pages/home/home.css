@@ -1,0 +1,25 @@
+/* Yerdaulet's part */
+
+/* Yegor */
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.create-form input,
+.create-form textarea,
+.create-form select,
+.create-form button {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.create-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}

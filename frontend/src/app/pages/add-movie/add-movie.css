@@ -1,0 +1,27 @@
+.add-movie-page { /* Yegor */
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.create-form { /* Yegor */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid #555;
+  border-radius: 12px;
+}
+
+.create-form input,
+.create-form textarea,
+.create-form select,
+.create-form button { /* Yegor */
+  padding: 12px;
+  font-size: 14px;
+}
+
+.create-form textarea { /* Yegor */
+  min-height: 120px;
+  resize: vertical;
+}

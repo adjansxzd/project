@@ -1,0 +1,35 @@
+.header-right {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-menu {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #1e1e2f;
+  color: white;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: #2a2a3d;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dropdown button {
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background: #3a3a55;
+}

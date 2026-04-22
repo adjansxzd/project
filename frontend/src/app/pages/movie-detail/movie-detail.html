@@ -1,0 +1,103 @@
+<!-- Yerdaulet's part -->
+<div class="loader-container" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+<div class="detail-page" *ngIf="!loading && movie">
+  <a routerLink="/" class="back-link">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    <span>Назад на главную</span>
+  </a>
+
+  <!-- Movie Header & Info -->
+  <div class="movie-info glass-panel">
+    <div class="movie-header">
+      <h1>{{ movie.title }}</h1>
+      <!-- Preview -->
+        <div *ngIf="movie?.preview" class="detail-preview-block"> <!-- Yegor -->
+          <img [src]="movie.preview" alt="preview" class="detail-preview" /> <!-- Yegor -->
+        </div> <!-- Yegor -->
+      <span class="year-badge">{{ movie.year }}</span>
+    </div>
+    
+    <div class="meta-row">
+      <span class="genre-tag">{{ getGenreName() }}</span>
+      <div class="rating-badge">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"/></svg>
+        <span>{{ getAvgRating() }} / 10</span>
+      </div>
+    </div>
+
+    <p class="description">{{ movie.description }}</p>
+
+    <!-- Trailer -->
+    <div *ngIf="movie?.video" class="movie-video-block">
+      <h3>Трейлер / Видео</h3>
+      <video class="movie-video shadow-lg" controls preload="metadata">
+        <source [src]="movie.video" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+      </video>
+      <a class="btn-outline" [href]="movie.video" target="_blank">Открыть в новой вкладке</a>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="reviews-section">
+    <div class="section-header">
+      <h2>Отзывы <span class="count">{{ reviews.length }}</span></h2>
+    </div>
+
+    <div class="reviews-list">
+      <div class="review-card glass-panel" *ngFor="let review of reviews">
+        <div class="review-header">
+          <div class="user-avatar">
+            {{ review.user ? review.user[0].toUpperCase() : 'U' }}
+          </div>
+          <div class="user-info">
+            <span class="review-user">{{ review.user || 'Аноним' }}</span>
+            <span class="review-date">{{ review.created_at | date:'dd.MM.yyyy' }}</span>
+          </div>
+          <div class="review-rating user-rating">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"/></svg>
+            {{ review.rating }}
+          </div>
+        </div>
+        <p class="review-text">{{ review.text }}</p>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="!reviews.length">
+      <svg opacity="0.3" viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" fill="none" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <p>Станьте первым, кто оставит тут отзыв</p>
+    </div>
+
+    <!-- Review Form -->
+    <div class="review-form glass-panel">
+      <h3>Поделитесь впечатлениями</h3>
+      <div class="error-toast" *ngIf="reviewError">{{ reviewError }}</div>
+      
+      <div class="form-group">
+        <textarea [(ngModel)]="reviewText" placeholder="Что думаете о фильме? Напишите сюда..." rows="4" class="custom-textarea"></textarea>
+      </div>
+      
+      <div class="rating-slider-group">
+        <div class="rating-labels">
+          <label>Оценка</label>
+          <span class="rating-value">{{ reviewRating }} / 10</span>
+        </div>
+        <input type="range" class="custom-slider" min="1" max="10" [(ngModel)]="reviewRating">
+      </div>
+      
+      <button class="btn-primary" (click)="submitReview()" [disabled]="reviewLoading">
+        <span *ngIf="!reviewLoading">Опубликовать отзыв</span>
+        <span *ngIf="reviewLoading">Отправка...</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="empty-state page-error" *ngIf="!loading && !movie">
+  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+  <h2>Фильм не найден</h2>
+  <a routerLink="/" class="btn-primary mt-4" style="max-width: 200px; margin: 0 auto;">На главную</a>
+</div>
