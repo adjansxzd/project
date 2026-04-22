@@ -1,0 +1,13 @@
+
+.nav-link-add-movie {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link-add-movie:visited {
+  color: white;
+}
+
+.nav-link-add-movie:hover {
+  color: #c2c2c2;
+}

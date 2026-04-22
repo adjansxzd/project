@@ -1,0 +1,16 @@
+
+.preview-block { 
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.movie-preview { 
+  width: 100%;
+  height: 160px; 
+  object-fit: cover; 
+  border-radius: 10px;
+  display: block;
+}
+.card-header {
+  margin-top: 10px; 
+}
