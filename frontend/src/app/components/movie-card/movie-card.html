@@ -1,17 +1,16 @@
-
 <div class="movie-card" [routerLink]="['/movie', movie.id]">
-   <div *ngIf="movie.preview" class="preview-block"
-    <img [src]="movie.preview" alt="preview" class="movie-preview" 
+  <div *ngIf="movie.preview" class="preview-block">
+    <img [src]="movie.preview" alt="preview" class="movie-preview">
+  </div>
   <div class="card-header">
-<span class="genre-badge">{{ getGenreName() }}</span
+    <span class="genre-badge">{{ getGenreName() }}</span>
     <span class="rating" *ngIf="getAvgRating() > 0">⭐ {{ getAvgRating() }}</span>
   </div>
   <h3 class="title">{{ movie.title }}</h3>
   <p class="year">{{ movie.year }}</p>
   <p class="description">{{ movie.description | slice:0:120 }}...</p>
   <span class="reviews-count">{{ movie.reviews?.length || 0 }} отзывов</span>
-
-  <div class="card-actions"
-    <button class="delete-btn" (click)="onDelete($event)">Delete</button
-  </div
+  <div class="card-actions">
+    <button class="delete-btn" (click)="onDelete($event)">Delete</button>
+  </div>
 </div>
