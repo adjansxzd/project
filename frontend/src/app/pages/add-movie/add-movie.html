@@ -1,5 +1,5 @@
-<div class="add-movie-page"> <!-- Yegor -->
-  <div class="create-form"> <!-- Yegor -->
+<div class="add-movie-page">
+  <div class="create-form">
     <h2>Add Movie</h2>
 
     <input
@@ -19,21 +19,21 @@
       [(ngModel)]="newMovie.year"
     />
 
-    <select [(ngModel)]="newMovie.genre"> <!-- Yegor -->
-      <option [ngValue]="null">Select genre</option> <!-- Yegor -->
+    <select [(ngModel)]="newMovie.genre">
+      <option [ngValue]="null">Select genre</option>
       <option *ngFor="let genre of genres" [ngValue]="genre.id">
         {{ genre.name }}
       </option>
     </select>
 
-    <label>Video</label> <!-- Yegor -->
+    <label>Video</label>
     <input
       type="file"
       accept="video/*"
       (change)="onVideoSelected($event)"
     />
 
-    <label>Preview image</label> <!-- Yegor -->
+    <label>Preview image</label>
     <input
       type="file"
       accept="image/*"

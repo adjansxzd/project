@@ -1,4 +1,3 @@
-<!-- Yerdaulet's part -->
 <div class="loader-container" *ngIf="loading">
   <div class="spinner"></div>
 </div>
@@ -14,9 +13,9 @@
     <div class="movie-header">
       <h1>{{ movie.title }}</h1>
       <!-- Preview -->
-        <div *ngIf="movie?.preview" class="detail-preview-block"> <!-- Yegor -->
-          <img [src]="movie.preview" alt="preview" class="detail-preview" /> <!-- Yegor -->
-        </div> <!-- Yegor -->
+        <div *ngIf="movie?.preview" class="detail-preview-block">
+          <img [src]="movie.preview" alt="preview" class="detail-preview" />
+        </div>
       <span class="year-badge">{{ movie.year }}</span>
     </div>
     

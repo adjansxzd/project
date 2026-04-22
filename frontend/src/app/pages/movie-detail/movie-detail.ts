@@ -1,4 +1,3 @@
-// Yerdaulet's part
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -75,11 +74,11 @@ export class MovieDetailComponent implements OnInit {
     const sum = this.reviews.reduce((acc, r) => acc + r.rating, 0);
     return Math.round((sum / this.reviews.length) * 10) / 10;
   }
-  getGenreName(): string { // Yegor
-    if (!this.movie || !this.movie.genre) return 'Без жанра'; // Yegor
-    if (typeof this.movie.genre === 'object') return this.movie.genre.name; // Yegor
-    return 'Жанр'; // Yegor
-  } // Yegor
+  getGenreName(): string { 
+    if (!this.movie || !this.movie.genre) return 'Без жанра'; 
+    if (typeof this.movie.genre === 'object') return this.movie.genre.name; 
+    return 'Жанр'; 
+  } 
   submitReview(): void {
     if (!this.reviewText.trim()) {
       this.reviewError = 'Напишите текст отзыва';

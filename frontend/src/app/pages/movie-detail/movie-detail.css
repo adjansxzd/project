@@ -138,11 +138,11 @@
 .error-toast { background: rgba(224, 81, 81, 0.15); border: 1px solid #e05151; color: #fff; padding: 16px; margin-bottom: 24px; border-radius: 12px; font-weight: 500; }
 .mt-4 { margin-top: 24px; width: auto; padding: 12px 32px; display: inline-flex; }
 /* preview */
-.detail-preview-block { /* Yegor */
+.detail-preview-block { 
   margin: 20px 0;
 }
 
-.detail-preview { /* Yegor */
+.detail-preview { 
   width: 100%;
   max-width: 720px;
   height: 320px;

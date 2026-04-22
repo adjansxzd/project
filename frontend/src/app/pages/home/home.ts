@@ -2,13 +2,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../services/movie.service';
-import { Movie, Genre } from '../../models/movie.model'; // Changed by Yegor
+import { Movie, Genre } from '../../models/movie.model'; 
 import { MovieCard } from '../../components/movie-card/movie-card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MovieCard], // Changed by Yegor
+  imports: [CommonModule, MovieCard], 
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -17,7 +17,7 @@ export class Home implements OnInit {
   filteredMovies: Movie[] = [];
   loading = true;
   searchQuery = '';
-  genres: Genre[] = []; // Yegor
+  genres: Genre[] = [];
 
   constructor(
     private movieService: MovieService,
@@ -25,15 +25,15 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadGenres(); // Yegor
-    this.loadMovies(); // Yegor
+    this.loadGenres();
+    this.loadMovies();
   }
 
-  loadMovies(): void { // Yegor
+  loadMovies(): void {
     this.movieService.getMovies().subscribe({
       next: (data) => {
         this.movies = data;
-        this.mapGenres(); // Yegor
+        this.mapGenres();
         this.filteredMovies = this.movies;
         this.loading = false;
         this.cdr.detectChanges();
@@ -46,11 +46,11 @@ export class Home implements OnInit {
     });
   }
 
-  loadGenres(): void { // Yegor
+  loadGenres(): void {
     this.movieService.getGenres().subscribe({
       next: (data) => {
         this.genres = data;
-        this.mapGenres(); // Yegor
+        this.mapGenres();
         this.filteredMovies = this.movies;
         this.cdr.detectChanges();
       },
@@ -60,7 +60,7 @@ export class Home implements OnInit {
     });
   }
 
-  mapGenres(): void { // Yegor
+  mapGenres(): void {
     if (!this.movies.length || !this.genres.length) return;
 
     const genreMap = new Map(this.genres.map(g => [g.id, g]));
@@ -84,19 +84,19 @@ export class Home implements OnInit {
     this.cdr.detectChanges();
   }
 
-  deleteMovie(id: number): void { // Yegor
-    const confirmed = confirm('Удалить этот фильм?'); // Yegor
-    if (!confirmed) return; // Yegor
+  deleteMovie(id: number): void {
+    const confirmed = confirm('Удалить этот фильм?');
+    if (!confirmed) return;
 
     this.movieService.deleteMovie(id).subscribe({
       next: () => {
-        this.movies = this.movies.filter(movie => movie.id !== id); // Yegor
-        this.filteredMovies = this.filteredMovies.filter(movie => movie.id !== id); // Yegor
+        this.movies = this.movies.filter(movie => movie.id !== id);
+        this.filteredMovies = this.filteredMovies.filter(movie => movie.id !== id);
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Ошибка удаления фильма', err); // Yegor
-        alert('Не удалось удалить фильм'); // Yegor
+        console.error('Ошибка удаления фильма', err);
+        alert('Не удалось удалить фильм');
       }
     });
   }
