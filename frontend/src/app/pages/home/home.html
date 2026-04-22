@@ -5,7 +5,6 @@
       placeholder="🔍 Поиск фильма..."
       (input)="onSearch($any($event.target).value)"
     />
-    <a routerLink="/add-movie" class="add-btn">+ Добавить фильм</a>
   </div>
 
   <div class="loading" *ngIf="loading">Загрузка...</div>

@@ -10,3 +10,12 @@
 .nav-link-add-movie:hover {
   color: #c2c2c2;
 }
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #e50914, #ff6b35);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
