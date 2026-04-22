@@ -1,0 +1,9 @@
+<nav class="navbar">
+  <a routerLink="/home" class="logo">🎬 Kinopoisk</a>
+  <div class="nav-links" *ngIf="isLoggedIn()">
+    <a routerLink="/home">Главная</a>
+    <a routerLink="/add-movie">+ Добавить</a>
+    <a routerLink="/profile">{{ getUsername() }}</a>
+    <button (click)="logout()">Выйти</button>
+  </div>
+</nav>

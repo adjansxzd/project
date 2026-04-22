@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MovieService } from '../../services/movie.service';
 import { Movie, Genre } from '../../models/movie.model'; 
 import { MovieCard } from '../../components/movie-card/movie-card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MovieCard], 
+  imports: [CommonModule, MovieCard, RouterLink], 
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

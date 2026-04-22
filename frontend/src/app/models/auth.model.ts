@@ -9,6 +9,7 @@ export interface RegisterRequest {
 }
 
 export interface AuthResponse {
-    access: string;
-    refresh: string;
+    token: string;
+    username: string;
+    message: string;
 }
